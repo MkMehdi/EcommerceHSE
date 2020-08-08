@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ECommerce App demo</string>
+    <string name="text_button_add">Add product to card</string>
+    <string name="loading_desc">Loading, Thanks for your wait</string>
+
+    <string name="action_basket">Basket</string>
+
+    <string name="action_pay">Pay</string>
+</resources>

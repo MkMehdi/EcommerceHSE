@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/e_commerce_navigation"
+    app:startDestination="@id/categoryTreeFragment">
+
+    <fragment
+        android:id="@+id/categoryTreeFragment"
+        android:name="ma.demo.ecommerceappdemo.ui.cotegroytree.CategoryTreeFragment"
+        android:label="Category Tree"
+        tools:layout="@layout/catgeroy_tree_fragment">
+        <action
+            android:id="@+id/action_categoryTreeFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="ma.demo.ecommerceappdemo.ui.products.ProductsFragment"
+        android:label="Products"
+        tools:layout="@layout/products_fragment" >
+        <action
+            android:id="@+id/action_productsFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="ma.demo.ecommerceappdemo.ui.categories.CategoriesFragment"
+        android:label="Product Category"
+        tools:layout="@layout/categories_fragment">
+        <action
+            android:id="@+id/action_categoriesFragment_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailProductFragment"
+        android:name="ma.demo.ecommerceappdemo.ui.detailproduct.DetailProductFragment"
+        android:label="Product Detail"
+        tools:layout="@layout/detail_product_fragment" />
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="ma.demo.ecommerceappdemo.ui.basket.BasketFragment"
+        android:label="Basket"
+        tools:layout="@layout/basekt_fragment" >
+        <action
+            android:id="@+id/action_basketFragment_to_detailProductFragment"
+            app:destination="@id/detailProductFragment" />
+    </fragment>
+</navigation>
