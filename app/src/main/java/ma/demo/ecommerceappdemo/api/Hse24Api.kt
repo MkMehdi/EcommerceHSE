@@ -31,6 +31,16 @@ import retrofit2.http.Query
     @GET("/ext-api/app/1/c/**/*-{idCategory}")
     suspend fun getProducts(@Path("idCategory") idCategory: String): ProductResult
 
+
+    /**
+     * Result : 400 Bad request
+     */
+
+    @Headers("appDevice: ANDROID_PHONE","locale:de_DE")
+    @GET("/ext-api/app/1/c/**/*-\\{{idCategory}:[{start}-{end}]\\}")
+    suspend fun getProductsByPagination(@Path("idCategory") idCategory: String,
+    @Path("start") start:String,@Path("end") end:String): ProductResult
+
     @Headers("appDevice: ANDROID_PHONE","locale:de_DE")
     @GET("/ext-api/app/1/c/**/*-{idCategory}")
     suspend fun getJsonProducts(@Path("idCategory") idCategory: String): JsonElement

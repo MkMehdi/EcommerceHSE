@@ -58,8 +58,6 @@ class DetailProductFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 titleProductText.text = viewModel.product?.title
 
-                Log.d("tag","desc == ${viewModel.product?.longDescription}")
-
                 descProductText.movementMethod = ScrollingMovementMethod()
                 descProductText.text = HtmlCompat.fromHtml(viewModel.product?.longDescription!!,HtmlCompat.FROM_HTML_MODE_LEGACY)
 

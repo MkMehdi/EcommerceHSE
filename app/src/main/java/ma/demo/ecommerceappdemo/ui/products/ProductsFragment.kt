@@ -1,26 +1,26 @@
 package ma.demo.ecommerceappdemo.ui.products
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.products_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ma.demo.ecommerceappdemo.AppECommerce
 import ma.demo.ecommerceappdemo.R
-import ma.demo.ecommerceappdemo.model.Category
 import ma.demo.ecommerceappdemo.model.Product
-import ma.demo.ecommerceappdemo.ui.cotegroytree.adapter.CategoryTreeAdapter
+import ma.demo.ecommerceappdemo.ui.products.adapter.EndlessRecyclerViewScrollListener
 import ma.demo.ecommerceappdemo.ui.products.adapter.ProductsAdapter
-import org.json.JSONObject
+
 
 class ProductsFragment : Fragment() {
 
@@ -31,6 +31,9 @@ class ProductsFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProviders.of(this).get(ProductsViewModel::class.java)
     }
+
+    // Store a member variable for the listener
+    private var scrollListener: EndlessRecyclerViewScrollListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,8 +69,7 @@ class ProductsFragment : Fragment() {
     }
 
 
-
-    private fun buildProductList(){
+  /*  private fun buildProductList(){
         productRecycler.apply {
             layoutManager = GridLayoutManager(activity,2)
             adapter =
@@ -84,6 +86,37 @@ class ProductsFragment : Fragment() {
                     }
                 })
         }
+    }*/
+
+    private fun buildProductList(){
+        productRecycler.apply {
+            val mLayoutManager = GridLayoutManager(activity,2)
+            layoutManager = mLayoutManager
+            adapter =
+                ProductsAdapter(viewModel.idCategory,
+                    viewModel.productList, object : ProductsAdapter.Listener {
+                        override fun onItemClick(product: Product) {
+                            Log.d("tag","clicked::${product.sku}")
+
+                            val bundle = Bundle()
+                            bundle.putString("idProduct",product.sku)
+                            view?.findNavController()?.navigate(
+                                R.id.action_productsFragment_to_detailProductFragment,
+                                bundle)
+
+                        }
+                    })
+
+
+            addOnScrollListener(object : EndlessRecyclerViewScrollListener(mLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    // Triggered only when new data needs to be appended to the list
+                    // Add whatever code is needed to append new items to the bottom of the list
+                    Log.d("page","page >>> $page")
+                }
+            })
+        }
+
     }
 
 
